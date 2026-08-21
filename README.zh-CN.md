@@ -15,7 +15,7 @@
 - **三档难度**——`easy` / `medium` / `hard`，每档各自配置 `{ provider?, model?, reasoningEffort? }`。
 - **自动难度打分**——中英文信号词 + 任务长度的启发式规则。
 - **思考深度感知**——`off` / `low` / `high` / `max`，模型不支持所选档位时优雅退回适配器默认。
-- **Web 设置卡片**——在 *设置 → 插件 → 插件配置* 里编辑档位与阈值；保存写入 `settings.yaml` 并**热生效**（无需重启）。
+- **独立配置面板**——在 *设置 → 子代理路由*（English: *Settings → subagent routing*）里编辑档位与阈值；保存写入 `settings.yaml` 并**热生效**（无需重启）。
 - **可选诊断日志**——每次分级追加一行 JSON，看不到控制台时用来排查。
 
 ## 工作原理
@@ -51,7 +51,7 @@ dsh plugin --profile web add ./dsh-subagent-model-routing
 dsh web
 ```
 
-> `dsh plugin add` 会把包安装进 profile 并追加到 `dsh.profile.bundles`。包内置的 `cordis.patch.yml`（即 `dsh.bundle.patch` 层）负责挂载 Host 半；`dsh.client` 声明负责在浏览器里加载设置卡片。
+> `dsh plugin add` 会把包安装进 profile 并追加到 `dsh.profile.bundles`。包内置的 `cordis.patch.yml`（即 `dsh.bundle.patch` 层）负责挂载 Host 半；`dsh.client` 声明负责在浏览器里加载设置面板。
 
 ### 手动安装（不用 `dsh plugin`）
 
@@ -68,7 +68,7 @@ dsh web
 
 ## 配置
 
-所有配置均可省略、回落默认值。patch 里的 `config` 是**基准层**；设置卡片里保存的值叠加在它之上并热生效。
+所有配置均可省略、回落默认值。patch 里的 `config` 是**基准层**；设置面板里保存的值叠加在它之上并热生效。
 
 | 键 | 说明 | 默认 |
 |---|---|---|
@@ -107,7 +107,7 @@ dsh web
 ## 使用
 
 1. 安装并启动 `dsh web`。
-2. （可选）打开 **设置 → 插件 → 插件配置**，找到 **dsh-subagent-model-routing** 卡片，为每档设置 Provider / 模型 / 思考深度。Provider 与模型是与对话选模型同源的下拉框；某字段留空（「继承」）即回落父级路由。
+2. （可选）打开 **设置 → 子代理路由**（Settings → subagent routing），为每档设置 Provider / 模型 / 思考深度。Provider 与模型是与对话选模型同源的下拉框；某字段留空（「继承」）即回落父级路由。
 3. 照常派生子代理——路由全自动。
 
 ## 已知限制

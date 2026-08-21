@@ -27,7 +27,7 @@ window.__ModuleLoader__.load({
 
 		// ── 文案（zh / en）────────────────────────────────────────────────────
 		const zh = {
-			title: 'dsh-subagent-model-routing',
+			title: '子代理路由',
 			description: '按子代理任务难度自动选择预设的模型与思考深度。留空（继承）沿用子代理继承的父级路由；清除某个字段即恢复继承。',
 			tier: { easy: '简单任务', medium: '中等任务', hard: '困难任务' },
 			provider: 'Provider',
@@ -51,7 +51,7 @@ window.__ModuleLoader__.load({
 			unavailable: 'Host 未挂载 dsh-subagent-model-routing 插件。',
 		}
 		const en = {
-			title: 'dsh-subagent-model-routing',
+			title: 'subagent routing',
 			description: 'Route subagents to preset models and reasoning efforts by task difficulty. Blank (inherit) fields follow the parent route; clearing a field restores inheritance.',
 			tier: { easy: 'Easy tasks', medium: 'Medium tasks', hard: 'Hard tasks' },
 			provider: 'Provider',
@@ -546,6 +546,7 @@ window.__ModuleLoader__.load({
 				() => ctx.locale.register(NS, { zh, en }),
 				'ui-dsh-subagent-model-routing: dictionaries',
 			)
+			const t = ctx.locale.bind(NS)
 			const { api } = ctx.get('connection')
 			const card = new CardController(
 				ctx.settingsScope.bind({ namespace: NAMESPACE }),
@@ -560,14 +561,14 @@ window.__ModuleLoader__.load({
 				() => ctx.remote.$on('settings/document-updated', () => { void card.loadCatalog() }),
 				'ui-dsh-subagent-model-routing: catalog invalidation (settings)',
 			)
-			ctx.slots.inject('settings.plugin.item', function* () {
-				yield ctx.slots.register({
-					name: 'settings.plugin.item',
-					key: NAMESPACE,
-					locale: NS,
-					inject: () => card.inject(),
-				}, SubagentModelRoutingCard)
-			})
+			ctx.slots.inject('settings.section', () => ctx.slots.register({
+				name: 'settings.section',
+				id: 'dsh-subagent-model-routing',
+				order: 100,
+				label: () => t('title'),
+				locale: NS,
+				inject: () => card.inject(),
+			}, SubagentModelRoutingCard))
 		}
 
 		// 注意：不能带 default 导出——cordis Loader 的 unwrapExports 会优先取

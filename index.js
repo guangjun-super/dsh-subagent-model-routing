@@ -27,9 +27,10 @@
  * 内创建 agent，本插件不会（也无法）介入，会自动跳过。
  *
  * 设置集成：在 dsh 环境中会注册 `dsh-subagent-model-routing` 设置命名空间，浏览器半
- * （dsh-subagent-model-routing-client.js）在设置页「插件配置」标签页提供三档预设的
- * 编辑卡片，保存后写入 settings.yaml 并热生效（下个 subagent 即用新档位）。
- * cordis.patch.yml 里的 config 仍是基准层：卡片里清除某个字段时回落到它。
+ * （dsh-subagent-model-routing-client.js）在设置页提供「子代理路由 / subagent
+ * routing」独立配置面板，保存后写入 settings.yaml 并热生效（下个 subagent
+ * 即用新档位）。cordis.patch.yml 里的 config 仍是基准层：面板里清除某个字段时
+ * 回落到它。
  *
  * 配置（全部可选，缺省用默认值）：
  *   tiers:           { easy, medium, hard } → { provider?, model?, reasoningEffort? }
@@ -47,7 +48,7 @@ export const name = 'dsh-subagent-model-routing'
 import { appendFileSync } from 'node:fs'
 
 // 设置集成（可选）：在 dsh 环境中解析 @deepseek-ai/dsh-settings 与 schemastery，
-// 注册 `dsh-subagent-model-routing` 设置命名空间 —— 设置页的「插件配置」卡片会通过它
+// 注册 `dsh-subagent-model-routing` 设置命名空间 —— 设置页的「子代理路由」面板会通过它
 // 编辑三档预设并写入 settings.yaml（热生效）。导入失败（例如本插件在独立脚本
 // 里单测）时静默降级为纯 patch 配置，功能不受影响。
 let settingsApi
@@ -64,7 +65,7 @@ try {
   schemastery = undefined
 }
 
-/** 设置命名空间：卡片与 Host 半侧配对的键。 */
+/** 设置命名空间：面板与 Host 半侧配对的键。 */
 const SETTINGS_NS = settingsApi === undefined ? 'dsh-subagent-model-routing' : settingsApi.settingsNamespace('dsh-subagent-model-routing')
 
 const TIER_NAMES = ['easy', 'medium', 'hard']

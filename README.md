@@ -15,7 +15,7 @@ It applies to **every agent preset** — `standard`, `code`, `cordis`, `minimal`
 - **Three difficulty tiers** — `easy` / `medium` / `hard`, each with its own `{ provider?, model?, reasoningEffort? }` preset.
 - **Automatic difficulty scoring** — heuristic signal words (Chinese & English) plus task length.
 - **Reasoning-effort aware** — `off` / `low` / `high` / `max`, with graceful fallback when a model doesn't support the requested effort.
-- **Settings card in the Web UI** — edit tiers and thresholds under *Settings → Plugins → Plugin config*; saves to `settings.yaml` and hot-applies (no restart).
+- **Standalone settings panel** — a dedicated *Settings → subagent routing* page (中文：*设置 → 子代理路由*), where you edit tiers and thresholds; saves to `settings.yaml` and hot-applies (no restart).
 - **Optional diagnostic log** — one JSON line per classification, for when you can't see the console.
 
 ## How it works
@@ -51,7 +51,7 @@ Then start the web UI:
 dsh web
 ```
 
-> `dsh plugin add` installs the package into the profile and appends it to `dsh.profile.bundles`. The package ships a `cordis.patch.yml` (its `dsh.bundle.patch` layer) that mounts the host half; the `dsh.client` declaration loads the settings card in the browser.
+> `dsh plugin add` installs the package into the profile and appends it to `dsh.profile.bundles`. The package ships a `cordis.patch.yml` (its `dsh.bundle.patch` layer) that mounts the host half; the `dsh.client` declaration loads the settings panel in the browser.
 
 ### Manual install (no `dsh plugin`)
 
@@ -68,7 +68,7 @@ dsh web
 
 ## Configure
 
-All settings are optional and fall back to defaults. The patch `config` is the **baseline layer**; whatever you save in the settings card is layered on top and hot-applies.
+All settings are optional and fall back to defaults. The patch `config` is the **baseline layer**; whatever you save in the settings panel is layered on top and hot-applies.
 
 | Key | Description | Default |
 |---|---|---|
@@ -107,7 +107,7 @@ Then `score ≥ hardThreshold → hard`, `score ≤ easyThreshold → easy`, oth
 ## Use
 
 1. Install and start `dsh web`.
-2. (Optional) Open **Settings → Plugins → Plugin config**, find the **dsh-subagent-model-routing** card, and set each tier's Provider / Model / Reasoning effort. Provider & model are dropdowns sourced from the same model catalog as the chat model picker; leaving a field blank ("inherit") falls back to the parent route.
+2. (Optional) Open **Settings → subagent routing** (设置 → 子代理路由) and set each tier's Provider / Model / Reasoning effort. Provider & model are dropdowns sourced from the same model catalog as the chat model picker; leaving a field blank ("inherit") falls back to the parent route.
 3. Spawn subagents as usual — routing is automatic.
 
 ## Limitations

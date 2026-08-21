@@ -5,12 +5,13 @@
 # `dsh.profile.bundles`; this patch is then applied as that bundle's layer. The
 # row below loads the package's main entry as the host half (a plain Cordis
 # plugin) and, because the package declares `dsh.client`, the web app also loads
-# its `./client` bundle as the browser half (the settings card).
+# its `./client` bundle as the browser half (the settings panel).
 #
-# The `config` below is the BASELINE layer. Values saved from the settings card
-# (Settings → Plugins → Plugin config) are written to settings.yaml and layered
-# on top, hot-applied on the next subagent — no restart needed. Leaving a field
-# blank in the card clears it, falling back to the baseline / parent route here.
+# The `config` below is the BASELINE layer. Values saved from the settings panel
+# (Settings → subagent routing / 设置 → 子代理路由) are written to settings.yaml
+# and layered on top, hot-applied on the next subagent — no restart needed.
+# Leaving a field blank in the panel clears it, falling back to the baseline /
+# parent route here.
 - insert:
     - id: dsh-subagent-model-routing
       name: dsh-subagent-model-routing
