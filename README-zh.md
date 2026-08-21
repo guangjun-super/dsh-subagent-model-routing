@@ -26,23 +26,8 @@
 
 ## 安装
 
-### 方式 A —— 从 npm（发布后）
-
 ```sh
 dsh plugin --profile web add dsh-subagent-model-routing
-```
-
-### 方式 B —— 从 GitHub
-
-```sh
-dsh plugin --profile web add github:guangjun-super/dsh-subagent-model-routing
-```
-
-### 方式 C —— 从本地克隆
-
-```sh
-git clone git@github.com:guangjun-super/dsh-subagent-model-routing.git
-dsh plugin --profile web add ./dsh-subagent-model-routing
 ```
 
 然后启动 Web UI：
@@ -50,21 +35,6 @@ dsh plugin --profile web add ./dsh-subagent-model-routing
 ```sh
 dsh web
 ```
-
-> `dsh plugin add` 会把包安装进 profile 并追加到 `dsh.profile.bundles`。包内置的 `cordis.patch.yml`（即 `dsh.bundle.patch` 层）负责挂载 Host 半；`dsh.client` 声明负责在浏览器里加载设置面板。
-
-### 手动安装（不用 `dsh plugin`）
-
-1. 把包放到 profile 的 Node 解析路径里，例如 `~/.dsh/profiles/node_modules/dsh-subagent-model-routing/`。
-2. 在 profile 的 `cordis.patch.yml`（例如 `~/.dsh/profiles/web/cordis.patch.yml`）里加上：
-
-   ```yaml
-   - insert:
-       - id: dsh-subagent-model-routing
-         name: dsh-subagent-model-routing
-   ```
-
-3. 重启 `dsh web`。
 
 ## 配置
 

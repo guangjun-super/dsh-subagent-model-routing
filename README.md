@@ -8,7 +8,7 @@ A Cordis plugin that automatically picks a preset **provider / model / reasoning
 
 It applies to **every agent preset** — `standard`, `code`, `cordis`, `minimal`, and any custom preset — because it mounts on the **host plane**, not inside a single preset.
 
-[中文文档 →](./README.zh-CN.md)
+[中文文档 →](./README-zh.md)
 
 ## Features
 
@@ -26,23 +26,8 @@ Out-of-process providers (`acp`, `codex`, `claude-code`, `dsh-sdk`) never create
 
 ## Install
 
-### Option A — from npm (once published)
-
 ```sh
 dsh plugin --profile web add dsh-subagent-model-routing
-```
-
-### Option B — from GitHub
-
-```sh
-dsh plugin --profile web add github:guangjun-super/dsh-subagent-model-routing
-```
-
-### Option C — from a local clone
-
-```sh
-git clone git@github.com:guangjun-super/dsh-subagent-model-routing.git
-dsh plugin --profile web add ./dsh-subagent-model-routing
 ```
 
 Then start the web UI:
@@ -50,21 +35,6 @@ Then start the web UI:
 ```sh
 dsh web
 ```
-
-> `dsh plugin add` installs the package into the profile and appends it to `dsh.profile.bundles`. The package ships a `cordis.patch.yml` (its `dsh.bundle.patch` layer) that mounts the host half; the `dsh.client` declaration loads the settings panel in the browser.
-
-### Manual install (no `dsh plugin`)
-
-1. Place the package where your profile's Node resolution can find it, e.g. `~/.dsh/profiles/node_modules/dsh-subagent-model-routing/`.
-2. Add this to your profile's `cordis.patch.yml` (e.g. `~/.dsh/profiles/web/cordis.patch.yml`):
-
-   ```yaml
-   - insert:
-       - id: dsh-subagent-model-routing
-         name: dsh-subagent-model-routing
-   ```
-
-3. Restart `dsh web`.
 
 ## Configure
 
