@@ -1,0 +1,24 @@
+# dsh-subagent-model-routing — bundle patch layer.
+#
+# Installing this package into a profile
+# (`dsh plugin --profile <name> add dsh-subagent-model-routing`) appends it to
+# `dsh.profile.bundles`; this patch is then applied as that bundle's layer. The
+# row below loads the package's main entry as the host half (a plain Cordis
+# plugin) and, because the package declares `dsh.client`, the web app also loads
+# its `./client` bundle as the browser half (the settings card).
+#
+# The `config` below is the BASELINE layer. Values saved from the settings card
+# (Settings → Plugins → Plugin config) are written to settings.yaml and layered
+# on top, hot-applied on the next subagent — no restart needed. Leaving a field
+# blank in the card clears it, falling back to the baseline / parent route here.
+- insert:
+    - id: dsh-subagent-model-routing
+      name: dsh-subagent-model-routing
+      config:
+        tiers:
+          easy:   { reasoningEffort: low }
+          medium: { reasoningEffort: high }
+          hard:   { reasoningEffort: max }
+        hardThreshold: 3
+        easyThreshold: -1
+        reclassify: first
